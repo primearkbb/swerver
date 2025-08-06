@@ -1,7 +1,4 @@
-// Config - replace these
-const SUPABASE_URL = "https://YOUR_PROJECT.supabase.co";
-const SUPABASE_ANON_KEY = "YOUR_ANON_KEY";
-
+const { SUPABASE_URL, SUPABASE_ANON_KEY } = window.APP_CONFIG;
 const { createClient } = supabase;
 const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 

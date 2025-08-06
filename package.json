@@ -1,0 +1,7 @@
+{
+  "name": "swerver",
+  "version": "0.0.1",
+  "scripts": {
+    "build": "node build.js"
+  }
+}

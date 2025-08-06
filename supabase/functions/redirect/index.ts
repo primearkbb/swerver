@@ -1,6 +1,15 @@
 import { createClient } from "@supabase/supabase-js";
 import { corsHeaders } from "../_shared/cors.ts";
 
+type DestinationCode = {
+  destination_url: string;
+};
+
+type ShareWithCode = {
+  destination_codes: DestinationCode;
+};
+
+// @ts-ignore Supabase functions serve deno natively
 Deno.serve(async (req) => {
   // Handle CORS
   if (req.method === "OPTIONS") {
@@ -18,7 +27,9 @@ Deno.serve(async (req) => {
   }
 
   const supabase = createClient(
+    // @ts-ignore Supabase functions serve deno natively
     Deno.env.get("SUPABASE_URL")!,
+    // @ts-ignore Supabase functions serve deno natively
     Deno.env.get("SUPABASE_ANON_KEY")!,
   );
 
