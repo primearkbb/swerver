@@ -5,7 +5,6 @@ const client = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 async function handleRedirect() {
   const path = window.location.pathname.slice(1);
 
-  // Skip if on login/expired pages or no code
   if (!path || path === "login" || path === "expired") return;
 
   try {
@@ -13,17 +12,18 @@ async function handleRedirect() {
       data: { session },
     } = await client.auth.getSession();
 
+    const headers = {
+      apikey: SUPABASE_ANON_KEY,
+      "Content-Type": "application/json",
+    };
+
+    if (session) {
+      headers["Authorization"] = `Bearer ${session.access_token}`;
+    }
+
     const response = await fetch(
       `${SUPABASE_URL}/functions/v1/redirect?code=${path}`,
-      {
-        headers: {
-          apikey: SUPABASE_ANON_KEY, // Always needed
-          Authorization: session
-            ? `Bearer ${session.access_token}`
-            : `Bearer ${SUPABASE_ANON_KEY}`,
-          "Content-Type": "application/json",
-        },
-      },
+      { headers },
     );
 
     const data = await response.json();
