@@ -16,11 +16,13 @@ async function handleRedirect() {
     const response = await fetch(
       `${SUPABASE_URL}/functions/v1/redirect?code=${path}`,
       {
-        headers: session
-          ? {
-              Authorization: `Bearer ${session.access_token}`,
-            }
-          : {},
+        headers: {
+          apikey: SUPABASE_ANON_KEY, // Always needed
+          Authorization: session
+            ? `Bearer ${session.access_token}`
+            : `Bearer ${SUPABASE_ANON_KEY}`,
+          "Content-Type": "application/json",
+        },
       },
     );
 
