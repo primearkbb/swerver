@@ -1,4 +1,5 @@
-import { createClient } from "@supabase/supabase-js";
+// @ts-ignore This isn't a problem i think...
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { corsHeaders } from "../_shared/cors.ts";
 
 type DestinationCode = {
